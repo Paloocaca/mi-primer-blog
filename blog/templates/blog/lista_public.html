@@ -1,0 +1,65 @@
+ <html>
+<head>
+	<title>CICLONOTICIAS Oficial</title>
+	<style>
+        .filtro-usuarios {
+            margin: 15px 0;
+            padding: 10px;
+            background: #070153;
+        }
+        .usuario-filtro {
+            display: inline-block;
+            margin-right: 10px;
+            padding: 5px 10px;
+            background: #a1a0f7;
+            border-radius: 3px;
+        }
+        .usuario-filtro.activo {
+            background: #960000;
+            color: rgb(255, 255, 255);
+        }
+        .limpiar-filtro {
+            display: inline-block;
+            margin-left: 10px;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+	<div style="background: red;">
+    	<h1><a href="/">CICLONOTICIAS Oficial</a></h1>
+    </div>
+	<!-- Filtro por usuario usando enlaces -->
+	<div class="filtro-usuarios">
+	<strong>Filtrar por autor:</strong>
+	
+	<!-- Opción "Todos" -->
+	<a href="?" class="usuario-filtro {% if not usuario_activo %}activo{% endif %}">
+		Todos
+	</a>
+	
+	<!-- Opciones por usuario -->
+	{% for usuario in usuarios %}
+		<a href="?usuario={{ usuario.id }}" 
+		   class="usuario-filtro {% if usuario_activo == usuario.id %}activo{% endif %}">
+			{{ usuario.username }}
+		</a>
+	{% endfor %}
+   </div>
+
+   <!-- Lista de publicaciones -->
+
+   <div>
+	{% for publicacion in publicaciones %} 
+	<p>Publicado: {{ publicacion.fecha_publicacion }} por autor/a: {{ publicacion.autor.username }} </p>
+	<h2> <a href=""> {{publicacion.titulo}} </a> </h2>
+	<p> {{ publicacion.texto|linebreaksbr }} </p>
+	<hr>	
+	{% endfor %}
+   </div>
+</body>
+</html>
+
+
+
+
